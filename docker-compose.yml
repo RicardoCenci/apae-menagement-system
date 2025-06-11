@@ -1,0 +1,26 @@
+networks:
+  app-network:
+
+
+volumes:
+  dbdata:
+
+
+services:
+  db:
+    image: postgres:13
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: app
+      POSTGRES_USER: app
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U app" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - app-network
