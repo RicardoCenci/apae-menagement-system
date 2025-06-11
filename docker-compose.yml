@@ -13,7 +13,7 @@ services:
       - "5433:5432"
     environment:
       POSTGRES_PASSWORD: app
-      POSTGRES_DB: app
+      POSTGRES_DB: apae_menagement_system
       POSTGRES_USER: app
     volumes:
       - dbdata:/var/lib/postgresql/data
