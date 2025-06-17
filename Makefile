@@ -22,6 +22,7 @@ setup:
 	php artisan key:generate
 	php artisan jwt:secret
 	php artisan migrate:fresh
+	npm install
 
 clean:
 	$(DOCKER_COMPOSE) down --volumes --remove-orphans
