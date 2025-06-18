@@ -5,7 +5,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	    <title>Laravel</title>
-	    @vite(['resources/css/app.css', 'resources/ts/index.tsx'])
+	    @vite(['resources/ts/index.tsx'])
 	</head>
 	<body>
 		<div id='root' ></div>
