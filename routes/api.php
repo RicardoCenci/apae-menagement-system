@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1')->group(function () {
+	Route::get('hello', function () {
+		return response()->json(['message' => 'Hello World']);
+	});
+
 	Route::group(['middleware' => 'auth:api'], function () {
 		Route::prefix('auth')->group(function () {
 			Route::post('login', [AuthController::class, 'login'])->name('login');
