@@ -20,6 +20,10 @@ Route::prefix('v1')->group(function () {
 		return response()->json(['message' => 'Hello World']);
 	});
 
+	Route::post('hello', function (Request $request) {
+		return response()->json(['message' => $request->input('message')]);
+	});
+
 	Route::group(['middleware' => 'auth:api'], function () {
 		Route::prefix('auth')->group(function () {
 			Route::post('login', [AuthController::class, 'login'])->name('login');
