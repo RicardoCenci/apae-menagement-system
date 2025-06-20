@@ -18,12 +18,12 @@ down:
 	$(DOCKER_COMPOSE) down
 
 setup: up
-	composer install
+	@composer install
 	@$(COPY_CMD) .env.example .env
-	php artisan key:generate
-	php artisan jwt:secret
-	php artisan migrate:fresh
-	npm install
+	@php artisan key:generate
+	@php artisan jwt:secret --force
+	@php artisan migrate:fresh
+	@npm install
 
 clean:
 	$(DOCKER_COMPOSE) down --volumes --remove-orphans
