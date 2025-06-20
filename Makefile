@@ -17,7 +17,8 @@ up:
 down:
 	$(DOCKER_COMPOSE) down
 
-setup:
+setup: up
+	composer install
 	@$(COPY_CMD) .env.example .env
 	php artisan key:generate
 	php artisan jwt:secret
