@@ -62,13 +62,10 @@ class GerconImport implements ToCollection, WithHeadingRow, WithChunkReading
 		return $this->data;
 	}
 
-	public function saveSelected(array $indexes)
+	public function saveSelected()
 	{
 		$saved = [];
-		foreach ($indexes as $i) {
-			$row = $this->data->get($i);
-
-			if (!$row) continue;
+		foreach ($this->data as $row) {
 
 			DB::beginTransaction();
 			try {
@@ -154,7 +151,7 @@ class GerconImport implements ToCollection, WithHeadingRow, WithChunkReading
 				$cid = null;
 				if (!empty($row['codigo_do_cid_principal'])) {
 					$cid = Cid::firstOrCreate([
-						'id' => $row['codigo_do_cid_principal']
+						'codigo' => $row['codigo_do_cid_principal']
 					], [
 						'nome' => $row['descricao_do_cid_principal'] ?? null
 					]);
@@ -164,7 +161,7 @@ class GerconImport implements ToCollection, WithHeadingRow, WithChunkReading
 				$procedimento = null;
 				if (!empty($row['codigo_procedimento'])) {
 					$procedimento = Procedimento::firstOrCreate([
-						'id' => $row['codigo_procedimento']
+						'codigo' => $row['codigo_procedimento']
 					], [
 						'nome' => $row['nome_procedimento'] ?? null
 					]);

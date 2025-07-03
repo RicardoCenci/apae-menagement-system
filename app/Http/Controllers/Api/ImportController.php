@@ -32,11 +32,7 @@ class ImportController extends Controller
 
 			Excel::import($importable, $request->file('file'), null, \Maatwebsite\Excel\Excel::XLSX);
 
-			$indexes = $request->indexes ?? [];
-
-			throw_if(empty($indexes), 'Exception', 'Nenhum índice selecionado para salvar.', 400);
-
-			$saved = $importable->saveSelected($indexes);
+			$saved = $importable->saveSelected();
 
 			return response()->json(['saved' => $saved], 200);
 		} catch (Throwable $e) {
