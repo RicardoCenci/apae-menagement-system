@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('acompanhante', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pessoa_id')->unique()->constrained('pessoa');
             $table->string('parentesco', 50);
             $table->foreignId('paciente_id')->constrained('paciente');
             $table->timestamps();
-            
-            $table->foreign('id')->references('id')->on('pessoa');
         });
     }
 

@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('paciente', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pessoa_id')->unique()->constrained('pessoa');
             $table->string('cartao_sus', 20)->unique()->nullable();
             $table->timestamps();
-            
-            $table->foreign('id')->references('id')->on('pessoa');
         });
     }
 

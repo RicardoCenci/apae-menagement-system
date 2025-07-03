@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ImportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,10 @@ Route::prefix('v1')->group(function () {
 			Route::post('refresh', [AuthController::class, 'refresh']);
 			Route::get('me', [AuthController::class, 'me']);
 		});
-	});
 
+		Route::prefix('import')->group(function () {
+			Route::post('upload', [ImportController::class, 'import']);
+			Route::post('save', [ImportController::class, 'save']);
+		});
+	});
 });

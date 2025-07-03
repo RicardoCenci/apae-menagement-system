@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('profissional', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pessoa_id')->unique()->constrained('pessoa');
             $table->foreignId('especialidade_id')->nullable()->constrained('especialidade');
             $table->timestamps();
-            
-            $table->foreign('id')->references('id')->on('pessoa');
         });
     }
 

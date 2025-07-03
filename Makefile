@@ -23,6 +23,7 @@ setup: up
 	@php artisan key:generate
 	@php artisan jwt:secret --force
 	@php artisan migrate:fresh
+	@php artisan db:seed
 	@npm install
 
 clean:
