@@ -67,7 +67,7 @@ class GerconImport implements ToCollection, WithHeadingRow, WithChunkReading
 		$saved = [];
 		foreach ($indexes as $i) {
 			$row = $this->data->get($i);
-			dd($this->data);
+
 			if (!$row) continue;
 
 			DB::beginTransaction();
