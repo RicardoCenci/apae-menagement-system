@@ -12,12 +12,10 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const TOKEN_KEY = 'auth_token';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem(TOKEN_KEY);
-    if (token) setIsAuthenticated(true);
-  }, []);
+ 
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    () => Boolean(localStorage.getItem(TOKEN_KEY))
+  );
 
   const login = async (email: string, password: string) => {
     // Dummy auth: accept anything, save token
