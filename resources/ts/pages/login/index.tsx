@@ -1,10 +1,10 @@
-import React, { useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { login } from '../../services/api/auth/login';
+import { login } from '@/services/api/auth/login';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { useAuthContext } from '../../context/AuthContext/index';
-import { getCurrentUser } from '../../services/api/auth/getCurrentUser';
+import { useAuthContext } from '@/context/AuthContext/index';
+import { getCurrentUser } from '@/services/api/auth/getCurrentUser';
 
 export function LoginPage() {
 	const [state, dispatch] = useAuthContext();

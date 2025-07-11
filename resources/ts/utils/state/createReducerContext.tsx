@@ -1,4 +1,4 @@
-import React, { createContext, useContext as useReactContext, useReducer} from 'react';
+import { createContext, useContext as useReactContext, useReducer} from 'react';
 
 export function createReducerContext<StateType extends {}, ActionType extends {}>(
 	defaultValue: StateType,

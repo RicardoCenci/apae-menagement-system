@@ -1,0 +1,80 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"lib": [
+			"ES2022",
+			"DOM",
+			"DOM.Iterable"
+		],
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"isolatedModules": true,
+		"moduleDetection": "force",
+		"noEmit": true,
+		"jsx": "react-jsx",
+		"jsxImportSource": "react",
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"exactOptionalPropertyTypes": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUncheckedIndexedAccess": true,
+		"noImplicitOverride": true,
+		"allowUnusedLabels": false,
+		"allowUnreachableCode": false,
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"verbatimModuleSyntax": true,
+		"skipLibCheck": true,
+		"declaration": false,
+		"declarationMap": false,
+		"sourceMap": true,
+		"allowJs": true,
+		"checkJs": false,
+		"useDefineForClassFields": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": [
+				"resources/ts/*"
+			],
+			"@/components/*": [
+				"resources/ts/components/*"
+			],
+			"@/pages/*": [
+				"resources/ts/pages/*"
+			],
+			"@/services/*": [
+				"resources/ts/services/*"
+			],
+			"@/context/*": [
+				"resources/ts/context/*"
+			],
+			"@/utils/*": [
+				"resources/ts/utils/*"
+			],
+			"@/types/*": [
+				"resources/ts/types/*"
+			]
+		}
+	},
+	"include": [
+		"resources/ts/**/*",
+		"resources/ts/**/*.tsx",
+		"resources/ts/**/*.ts",
+		"resources/ts/**/*.jsx",
+		"resources/ts/**/*.js",
+		"vite.config.js"
+	],
+	"exclude": [
+		"node_modules",
+		"vendor",
+		"public/build",
+		"storage",
+		"bootstrap/cache",
+		"dist",
+		"build"
+	]
+}
