@@ -282,7 +282,6 @@ export function DetalhesCadastroPage({
 					</div>
 				</form>
 			) : (
-				// Modo de Visualização
 				<div>
 					<div className="mb-2">
 						<p>

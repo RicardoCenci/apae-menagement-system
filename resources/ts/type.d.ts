@@ -1,16 +1,13 @@
-// CSS Modules
 declare module '*.module.css' {
   const classes: { [key: string]: string };
   export default classes;
 }
 
-// CSS Files
 declare module '*.css' {
   const content: string;
   export default content;
 }
 
-// Image Files
 declare module '*.svg' {
   const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
   export default content;
@@ -41,7 +38,6 @@ declare module '*.webp' {
   export default content;
 }
 
-// Environment Variables
 declare namespace NodeJS {
   interface ProcessEnv {
     NODE_ENV: 'development' | 'production' | 'test';
@@ -51,7 +47,6 @@ declare namespace NodeJS {
   }
 }
 
-// Vite Environment Variables
 interface ImportMetaEnv {
   readonly VITE_API_URL?: string;
   readonly VITE_APP_NAME?: string;
@@ -62,7 +57,6 @@ interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
-// Domain Types
 export interface Appointment {
   id: string;
   patient: string;

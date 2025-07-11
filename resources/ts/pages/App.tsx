@@ -16,7 +16,6 @@ import { DetalhesCadastroPage } from "@/pages/cadastros/detail";
 import type { Appointment, Patient, Professional, Companion } from "@/type";
 
 export function App() {
-	// Estado dos agendamentos
 	const [appointments, setAppointments] = useState<Appointment[]>([
 		{
 			id: "P001",
@@ -152,7 +151,6 @@ export function App() {
 		},
 	]);
 
-	// Estados para Pacientes, Profissionais e Acompanhantes
 	const [patients, setPatients] = useState<Patient[]>([
 		{
 			id: "PAC001",
@@ -191,7 +189,6 @@ export function App() {
 		{ id: "ACOM001", name: "Maria Silva", cpf: "555.555.555-55" },
 	]);
 
-	// Funções de CRUD para Agendamentos
 	const handleAddAppointment = (newAppointment: Appointment) => {
 		setAppointments((prevAppointments) => [
 			...prevAppointments,
@@ -214,7 +211,6 @@ export function App() {
 			)
 		);
 	};
-	// NOVA FUNÇÃO: Atualizar um agendamento completo
 	const handleUpdateAppointment = (id: string, updatedAppointment: Appointment) => {
 		setAppointments((prevAppointments) =>
 			prevAppointments.map((appointment) =>
@@ -223,7 +219,6 @@ export function App() {
 		);
 	};
 
-	// Funções de CRUD para Pacientes (Adicionando update)
 	const handleAddPatient = (newPatient: Omit<Patient, 'id'>) => {
 		setPatients((prevPatients) => [
 			...prevPatients,
@@ -243,7 +238,6 @@ export function App() {
 		);
 	};
 
-	// Funções de CRUD para Profissionais (Adicionando update)
 	const handleAddProfessional = (newProfessional: Omit<Professional, 'id'>) => {
 		setProfessionals((prevProfessionals) => [
 			...prevProfessionals,
@@ -265,7 +259,6 @@ export function App() {
 		);
 	};
 
-	// Funções de CRUD para Acompanhantes (Adicionando update)
 	const handleAddCompanion = (newCompanion: Omit<Companion, 'id'>) => {
 		setCompanions((prevCompanions) => [
 			...prevCompanions,
@@ -329,7 +322,6 @@ export function App() {
 							}
 						/>
 
-						{/* Rotas de Cadastro (Principal e Formulários) */}
 						<Route
 							path="/cadastros"
 							element={
@@ -371,7 +363,6 @@ export function App() {
 							}
 						/>
 
-						{/* Rota de Detalhes/Edição de Cadastro */}
 						<Route
 							path="/cadastros/detalhes/:id"
 							element={

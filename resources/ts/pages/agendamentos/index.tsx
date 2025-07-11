@@ -12,7 +12,6 @@ export function ListagemAgendamentosPage({
 	const [endDateFilter, setEndDateFilter] = useState("");
 	const [selectedAppointments, setSelectedAppointments] = useState([]);
 
-	// Função auxiliar para formatar a data para DD/MM/AAAA
 	const formatDateToBrazilian = (dateString) => {
 		if (!dateString) return "";
 		const [year, month, day] = dateString.split("-");
@@ -176,7 +175,6 @@ export function ListagemAgendamentosPage({
 				>
 					+ Novo Agendamento
 				</button>
-				{/* NOVO BOTÃO: Ir para Cadastros */}
 				<button
 					className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
 					onClick={() => navigate("/cadastros")}

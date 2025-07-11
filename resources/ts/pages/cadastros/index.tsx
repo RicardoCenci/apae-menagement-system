@@ -124,7 +124,6 @@ export function CadastrosPages({
 		}
 	};
 
-	// Função para lidar com o clique na linha para ver detalhes/editar
 	const handleRowClick = (id) => {
 		navigate(`/cadastros/detalhes/${id}`);
 	};

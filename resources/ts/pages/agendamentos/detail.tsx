@@ -59,10 +59,6 @@ export function DetalhesAgendamentoPage({ appointments, onUpdateAppointment }: D
 		});
 	};
 
-	// Funções para lidar com as faltas (pode editar aqui ou manter no ControleAgendamentos)
-	// Para simplificar, vou manter apenas os campos de input, assumindo que a edição é manual aqui.
-	// Se quiser a interatividade do clique, precisaria de um controle separado para essa tela ou ajustar o handleClickStatus.
-
 	if (!currentAppointmentData) {
 		return (
 			<div className="container mx-auto p-4 mt-8 text-center text-gray-700">
@@ -214,7 +210,6 @@ export function DetalhesAgendamentoPage({ appointments, onUpdateAppointment }: D
 					</div>
 				</form>
 			) : (
-				// Modo de Visualização
 				<div>
 					<div className="mb-2">
 						<p>
