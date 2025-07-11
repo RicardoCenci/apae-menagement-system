@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { Navigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";

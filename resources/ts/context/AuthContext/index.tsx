@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { createLocalStorage } from "../../utils/persistance/localStorage";
 import { createReducerContext } from "../../utils/state/createReducerContext";
 import { AuthTypes } from "./types";
