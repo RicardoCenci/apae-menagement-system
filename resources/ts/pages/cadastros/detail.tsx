@@ -1,7 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { formatCpf } from "../../utils/format";
-import { formatDateToBrazilian } from "../../utils/date";
+import { formatCpf } from "@/utils/format";
+import { formatDateToBrazilian } from "@/utils/date";
+import type { Patient, Professional, Companion } from "@/type";
+
+interface DetalhesCadastroPageProps {
+	patients: Patient[];
+	professionals: Professional[];
+	companions: Companion[];
+	onUpdatePatient: (id: string, patient: Patient) => void;
+	onUpdateProfessional: (id: string, professional: Professional) => void;
+	onUpdateCompanion: (id: string, companion: Companion) => void;
+}
 
 export function DetalhesCadastroPage({
 	patients,
@@ -10,18 +20,18 @@ export function DetalhesCadastroPage({
 	onUpdatePatient,
 	onUpdateProfessional,
 	onUpdateCompanion,
-}) {
+}: DetalhesCadastroPageProps) {
 	const params = useParams(); // Pega o ID (ex: PAC001, PROF001, ACOM001)
 
 	const { id } = params as { id: string };
 	const navigate = useNavigate();
 	const [isEditing, setIsEditing] = useState<boolean>(false);
-	const [currentData, setCurrentData] = useState<any>(null); // Dados do item atualmente em edição/visualização
-	const [dataType, setDataType] = useState<any>(null); // 'patient', 'professional', 'companion'
+	const [currentData, setCurrentData] = useState<Patient | Professional | Companion | null>(null);
+	const [dataType, setDataType] = useState<'patient' | 'professional' | 'companion' | null>(null);
 
 	useEffect(() => {
-		let foundItem: any = null;
-		let type: any = null;
+		let foundItem: Patient | Professional | Companion | null = null;
+		let type: 'patient' | 'professional' | 'companion' | null = null;
 
 		if (id.startsWith("PAC")) {
 			foundItem = patients.find((p) => p.id === id);
@@ -35,50 +45,52 @@ export function DetalhesCadastroPage({
 		}
 
 		if (foundItem) {
-			setCurrentData({ ...foundItem }); // Copia para o estado de edição
+			setCurrentData({ ...foundItem });
 			setDataType(type);
 		} else {
-			// Se não encontrar, pode redirecionar ou mostrar mensagem de erro
 			navigate("/cadastros");
 			alert("Cadastro não encontrado!");
 		}
 	}, [id, patients, professionals, companions, navigate]); // Re-executa se o ID ou as listas mudarem
 
-	const handleSave = (e) => {
+	const handleSave = (e: React.FormEvent) => {
 		e.preventDefault();
 		if (!currentData) return;
 
 		let success = false;
-		switch (dataType as any) {
+		switch (dataType) {
 			case "patient":
-				if (!currentData.name || !currentData.cpf || !currentData.dob) {
+				const patientData = currentData as Patient;
+				if (!patientData.name || !patientData.cpf || !patientData.dob) {
 					alert("Nome, CPF e Data de Nascimento são obrigatórios.");
 					return;
 				}
-				onUpdatePatient(currentData.id, currentData);
+				onUpdatePatient(patientData.id, patientData);
 				success = true;
 				break;
 			case "professional":
+				const professionalData = currentData as Professional;
 				if (
-					!currentData.name ||
-					!currentData.cpf ||
-					!currentData.dob ||
-					!currentData.specialty
+					!professionalData.name ||
+					!professionalData.cpf ||
+					!professionalData.dob ||
+					!professionalData.specialty
 				) {
 					alert(
 						"Nome, CPF, Data de Nascimento e Especialidade são obrigatórios."
 					);
 					return;
 				}
-				onUpdateProfessional(currentData.id, currentData);
+				onUpdateProfessional(professionalData.id, professionalData);
 				success = true;
 				break;
 			case "companion":
-				if (!currentData.name || !currentData.cpf) {
+				const companionData = currentData as Companion;
+				if (!companionData.name || !companionData.cpf) {
 					alert("Nome e CPF são obrigatórios.");
 					return;
 				}
-				onUpdateCompanion(currentData.id, currentData);
+				onUpdateCompanion(companionData.id, companionData);
 				success = true;
 				break;
 			default:

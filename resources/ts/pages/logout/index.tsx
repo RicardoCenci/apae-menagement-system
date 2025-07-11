@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "@/context/AuthContext";
 import { Navigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
-import { logout } from "../../services/api/auth/logout";
+import { logout } from "@/services/api/auth/logout";
 
 export function LogoutPage() {
     const [state, dispatch] = useAuthContext();

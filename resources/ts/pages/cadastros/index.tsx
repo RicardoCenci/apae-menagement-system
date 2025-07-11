@@ -1,7 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { formatCpf } from "../../utils/format";
-import { formatDateToBrazilian } from "../../utils/date";
+import { formatCpf } from "@/utils/format";
+import { formatDateToBrazilian } from "@/utils/date";
+import type { Patient, Professional, Companion } from "@/type";
+
+interface CadastrosPagesProps {
+	patients: Patient[];
+	professionals: Professional[];
+	companions: Companion[];
+	onDeletePatients: (ids: string[]) => void;
+	onDeleteProfessionals: (ids: string[]) => void;
+	onDeleteCompanions: (ids: string[]) => void;
+}
 
 export function CadastrosPages({
 	patients,
@@ -10,17 +20,16 @@ export function CadastrosPages({
 	onDeletePatients,
 	onDeleteProfessionals,
 	onDeleteCompanions,
-}) {
+}: CadastrosPagesProps) {
 	const navigate = useNavigate();
-	const [activeList, setActiveList] = useState("patients"); // Padrão: pacientes
+	const [activeList, setActiveList] = useState<'patients' | 'professionals' | 'companions'>("patients");
 
-	const [selectedPatients, setSelectedPatients] = useState([]);
-	const [selectedProfessionals, setSelectedProfessionals] = useState([]);
-	const [selectedCompanions, setSelectedCompanions] = useState([]);
+	const [selectedPatients, setSelectedPatients] = useState<string[]>([]);
+	const [selectedProfessionals, setSelectedProfessionals] = useState<string[]>([]);
+	const [selectedCompanions, setSelectedCompanions] = useState<string[]>([]);
 
-	// Funções de seleção (inalteradas)
-	const handleSelectPatient = (id) => {
-		setSelectedPatients((prevSelected: any) =>
+	const handleSelectPatient = (id: string) => {
+		setSelectedPatients((prevSelected) =>
 			prevSelected.includes(id)
 				? prevSelected.filter((sid) => sid !== id)
 				: [...prevSelected, id]

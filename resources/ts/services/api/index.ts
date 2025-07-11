@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { authStorage } from '../../context/AuthContext';
+import { authStorage } from '@/context/AuthContext';
 
 export const api = axios.create({
     baseURL: "api",

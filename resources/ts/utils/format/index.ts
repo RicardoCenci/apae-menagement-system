@@ -1,4 +1,4 @@
-export const formatCpf = (cpf) => {
+export const formatCpf = (cpf: string): string => {
 	if (!cpf) return "";
 	const cleaned = cpf.replace(/\D/g, "");
 	if (cleaned.length === 11) {

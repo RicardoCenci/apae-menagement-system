@@ -1,5 +1,5 @@
-import { api } from '../index';
-import { AuthTypes } from '../../../context/AuthContext/types';
+import { api } from '@/services/api/index';
+import type { AuthTypes } from '@/context/AuthContext/types';
 
 type LoginRequest = {
 	email: string;

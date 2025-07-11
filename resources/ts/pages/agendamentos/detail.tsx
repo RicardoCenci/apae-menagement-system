@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { formatDateToBrazilian } from "../../utils/date";
+import { formatDateToBrazilian } from "@/utils/date";
+import type { Appointment } from "@/type";
 
-export function DetalhesAgendamentoPage({ appointments, onUpdateAppointment }) {
-	const { id } = useParams();
+interface DetalhesAgendamentoPageProps {
+	appointments: Appointment[];
+	onUpdateAppointment: (id: string, appointment: Appointment) => void;
+}
+
+export function DetalhesAgendamentoPage({ appointments, onUpdateAppointment }: DetalhesAgendamentoPageProps) {
+	const { id } = useParams<{ id: string }>();
 	const navigate = useNavigate();
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 	const [currentAppointmentData, setCurrentAppointmentData] =
-		useState<any>(null); // Dados do agendamento atual
+		useState<Appointment | null>(null);
 
 	useEffect(() => {
 		const foundAppointment = appointments.find((app) => app.id === id);
@@ -19,11 +25,10 @@ export function DetalhesAgendamentoPage({ appointments, onUpdateAppointment }) {
 		}
 	}, [id, appointments, navigate]); // Re-executa se o ID ou a lista de agendamentos mudar
 
-	const handleSave = (e) => {
+	const handleSave = (e: React.FormEvent) => {
 		e.preventDefault();
 		if (!currentAppointmentData) return;
 
-		// Adicione validação aqui se necessário
 		if (
 			!currentAppointmentData.patient ||
 			!currentAppointmentData.professional ||
@@ -36,17 +41,22 @@ export function DetalhesAgendamentoPage({ appointments, onUpdateAppointment }) {
 			return;
 		}
 
-		onUpdateAppointment(currentAppointmentData.id, currentAppointmentData); // Chama a função de atualização
+		onUpdateAppointment(currentAppointmentData.id, currentAppointmentData);
 		alert("Agendamento atualizado com sucesso!");
-		setIsEditing(false); // Volta para o modo de visualização
+		setIsEditing(false);
 	};
 
-	const handleChange = (e) => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
-		setCurrentAppointmentData((prevData) => ({
-			...prevData,
-			[name]: value,
-		}));
+		setCurrentAppointmentData((prevData) => {
+			if (!prevData) return null;
+			return {
+				...prevData,
+				[name]: name === 'justifiedAbsences' || name === 'unjustifiedAbsences' 
+					? parseInt(value) || 0 
+					: value,
+			};
+		});
 	};
 
 	// Funções para lidar com as faltas (pode editar aqui ou manter no ControleAgendamentos)

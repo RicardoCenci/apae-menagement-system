@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { NotFoundPage } from "./404";
-import { LoginPage } from "./login";
-import { MainLayout } from "../components/layouts/MainLayout";
-import { LogoutPage } from "./logout";
-import { AuthProvider } from "../context/AuthContext";
-import { ListagemAgendamentosPage } from "./agendamentos";
-import { CadastroAgendamentoPage } from "./agendamentos/new";
-import { DetalhesAgendamentoPage } from "./agendamentos/detail";
-import { CadastrosPages } from "./cadastros";
-import { CadastroPacientePage } from "./cadastros/cadastros-paciente";
-import { CadastroProfissionalPage } from "./cadastros/cadastro-profissional";
-import { CadastroAcompanhantePage } from "./cadastros/cadastro-acompanhante";
-import { DetalhesCadastroPage } from "./cadastros/detail";
+import { NotFoundPage } from "@/pages/404";
+import { LoginPage } from "@/pages/login";
+import { MainLayout } from "@/components/layouts/MainLayout";
+import { LogoutPage } from "@/pages/logout";
+import { AuthProvider } from "@/context/AuthContext";
+import { ListagemAgendamentosPage } from "@/pages/agendamentos";
+import { CadastroAgendamentoPage } from "@/pages/agendamentos/new";
+import { DetalhesAgendamentoPage } from "@/pages/agendamentos/detail";
+import { CadastrosPages } from "@/pages/cadastros";
+import { CadastroPacientePage } from "@/pages/cadastros/cadastros-paciente";
+import { CadastroProfissionalPage } from "@/pages/cadastros/cadastro-profissional";
+import { CadastroAcompanhantePage } from "@/pages/cadastros/cadastro-acompanhante";
+import { DetalhesCadastroPage } from "@/pages/cadastros/detail";
+import type { Appointment, Patient, Professional, Companion } from "@/type";
 
 export function App() {
 	// Estado dos agendamentos
-	const [appointments, setAppointments] = useState([
+	const [appointments, setAppointments] = useState<Appointment[]>([
 		{
 			id: "P001",
 			patient: "Alice Johnson",
@@ -152,7 +153,7 @@ export function App() {
 	]);
 
 	// Estados para Pacientes, Profissionais e Acompanhantes
-	const [patients, setPatients] = useState([
+	const [patients, setPatients] = useState<Patient[]>([
 		{
 			id: "PAC001",
 			name: "Alice Johnson",
@@ -168,7 +169,7 @@ export function App() {
 			companionId: "ACOM001",
 		},
 	]);
-	const [professionals, setProfessionals] = useState([
+	const [professionals, setProfessionals] = useState<Professional[]>([
 		{
 			id: "PROF001",
 			name: "Dr. Emily White",
@@ -186,18 +187,18 @@ export function App() {
 			specialty: "Pediatrics",
 		},
 	]);
-	const [companions, setCompanions] = useState([
+	const [companions, setCompanions] = useState<Companion[]>([
 		{ id: "ACOM001", name: "Maria Silva", cpf: "555.555.555-55" },
 	]);
 
 	// Funções de CRUD para Agendamentos
-	const handleAddAppointment = (newAppointment) => {
+	const handleAddAppointment = (newAppointment: Appointment) => {
 		setAppointments((prevAppointments) => [
 			...prevAppointments,
 			newAppointment,
 		]);
 	};
-	const updateAppointmentStatus = (id, newStatus) => {
+	const updateAppointmentStatus = (id: string, newStatus: Appointment['status']) => {
 		setAppointments((prevAppointments) =>
 			prevAppointments.map((appointment) =>
 				appointment.id === id
@@ -206,7 +207,7 @@ export function App() {
 			)
 		);
 	};
-	const handleDeleteAppointments = (idsToDelete) => {
+	const handleDeleteAppointments = (idsToDelete: string[]) => {
 		setAppointments((prevAppointments) =>
 			prevAppointments.filter(
 				(appointment) => !idsToDelete.includes(appointment.id)
@@ -214,7 +215,7 @@ export function App() {
 		);
 	};
 	// NOVA FUNÇÃO: Atualizar um agendamento completo
-	const handleUpdateAppointment = (id, updatedAppointment) => {
+	const handleUpdateAppointment = (id: string, updatedAppointment: Appointment) => {
 		setAppointments((prevAppointments) =>
 			prevAppointments.map((appointment) =>
 				appointment.id === id ? updatedAppointment : appointment
@@ -223,18 +224,18 @@ export function App() {
 	};
 
 	// Funções de CRUD para Pacientes (Adicionando update)
-	const handleAddPatient = (newPatient) => {
+	const handleAddPatient = (newPatient: Omit<Patient, 'id'>) => {
 		setPatients((prevPatients) => [
 			...prevPatients,
 			{ ...newPatient, id: `PAC${Date.now()}` },
 		]);
 	};
-	const handleDeletePatients = (idsToDelete) => {
+	const handleDeletePatients = (idsToDelete: string[]) => {
 		setPatients((prevPatients) =>
 			prevPatients.filter((patient) => !idsToDelete.includes(patient.id))
 		);
 	};
-	const handleUpdatePatient = (id, updatedPatient) => {
+	const handleUpdatePatient = (id: string, updatedPatient: Patient) => {
 		setPatients((prevPatients) =>
 			prevPatients.map((patient) =>
 				patient.id === id ? updatedPatient : patient
@@ -243,20 +244,20 @@ export function App() {
 	};
 
 	// Funções de CRUD para Profissionais (Adicionando update)
-	const handleAddProfessional = (newProfessional) => {
+	const handleAddProfessional = (newProfessional: Omit<Professional, 'id'>) => {
 		setProfessionals((prevProfessionals) => [
 			...prevProfessionals,
 			{ ...newProfessional, id: `PROF${Date.now()}` },
 		]);
 	};
-	const handleDeleteProfessionals = (idsToDelete) => {
+	const handleDeleteProfessionals = (idsToDelete: string[]) => {
 		setProfessionals((prevProfessionals) =>
 			prevProfessionals.filter(
 				(professional) => !idsToDelete.includes(professional.id)
 			)
 		);
 	};
-	const handleUpdateProfessional = (id, updatedProfessional) => {
+	const handleUpdateProfessional = (id: string, updatedProfessional: Professional) => {
 		setProfessionals((prevProfessionals) =>
 			prevProfessionals.map((professional) =>
 				professional.id === id ? updatedProfessional : professional
@@ -265,20 +266,20 @@ export function App() {
 	};
 
 	// Funções de CRUD para Acompanhantes (Adicionando update)
-	const handleAddCompanion = (newCompanion) => {
+	const handleAddCompanion = (newCompanion: Omit<Companion, 'id'>) => {
 		setCompanions((prevCompanions) => [
 			...prevCompanions,
 			{ ...newCompanion, id: `ACOM${Date.now()}` },
 		]);
 	};
-	const handleDeleteCompanions = (idsToDelete) => {
+	const handleDeleteCompanions = (idsToDelete: string[]) => {
 		setCompanions((prevCompanions) =>
 			prevCompanions.filter(
 				(companion) => !idsToDelete.includes(companion.id)
 			)
 		);
 	};
-	const handleUpdateCompanion = (id, updatedCompanion) => {
+	const handleUpdateCompanion = (id: string, updatedCompanion: Companion) => {
 		setCompanions((prevCompanions) =>
 			prevCompanions.map((companion) =>
 				companion.id === id ? updatedCompanion : companion

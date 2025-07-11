@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { createLocalStorage } from "../../utils/persistance/localStorage";
-import { createReducerContext } from "../../utils/state/createReducerContext";
-import { AuthTypes } from "./types";
-import { getCurrentUser } from "../../services/api/auth/getCurrentUser";
+import { createLocalStorage } from "@/utils/persistance/localStorage";
+import { createReducerContext } from "@/utils/state/createReducerContext";
+import type { AuthTypes } from "@/context/AuthContext/types";
+import { getCurrentUser } from "@/services/api/auth/getCurrentUser";
 import { useQuery } from "@tanstack/react-query";
 
 

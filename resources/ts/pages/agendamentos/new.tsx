@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import type { Appointment } from "@/type";
 
-export function CadastroAgendamentoPage({ onAddAppointment }) {
-	const [patient, setPatient] = useState("");
-	const [professional, setProfessional] = useState("");
-	const [specialty, setSpecialty] = useState("");
-	const [date, setDate] = useState(""); // Formato AAAA-MM-DD
-	const [notes, setNotes] = useState(""); // Novo campo de observação
+interface CadastroAgendamentoPageProps {
+	onAddAppointment: (appointment: Appointment) => void;
+}
+
+export function CadastroAgendamentoPage({ onAddAppointment }: CadastroAgendamentoPageProps) {
+	const [patient, setPatient] = useState<string>("");
+	const [professional, setProfessional] = useState<string>("");
+	const [specialty, setSpecialty] = useState<string>("");
+	const [date, setDate] = useState<string>("");
+	const [notes, setNotes] = useState<string>("");
 	const navigate = useNavigate();
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		if (!patient || !professional || !specialty || !date) {
 			alert(
@@ -18,8 +23,8 @@ export function CadastroAgendamentoPage({ onAddAppointment }) {
 			return;
 		}
 
-		const newAppointment = {
-			id: `P${Date.now()}`, // ID simples baseado no timestamp
+		const newAppointment: Appointment = {
+			id: `P${Date.now()}`,
 			patient,
 			professional,
 			specialty,
@@ -27,11 +32,11 @@ export function CadastroAgendamentoPage({ onAddAppointment }) {
 			justifiedAbsences: 0,
 			unjustifiedAbsences: 0,
 			status: "pending",
-			notes, // Inclui a observação
+			notes,
 		};
 
-		onAddAppointment(newAppointment); // Chama a função passada via props para adicionar
-		navigate("/agendamentos"); // Volta para a tela principal de agendamentos
+		onAddAppointment(newAppointment);
+		navigate("/agendamentos");
 	};
 
 	return (
